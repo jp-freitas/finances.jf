@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Modal from 'react-modal';
 
 import { GlobalStyle } from "./styles/global";
 
@@ -9,6 +10,8 @@ import { Dashboard } from "./pages/Dashboard";
 import { PrivateRoute } from './components/PrivateRoute';
 
 import { AuthContextProvider } from "./contexts/AuthContext";
+
+Modal.setAppElement('#root');
 
 export function App() {
   const [authenticated, setAuthenticated] = useState(false);
