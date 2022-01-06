@@ -1,8 +1,13 @@
 import { useHistory } from 'react-router-dom';
+
 import { useAuth } from '../../hooks/useAuth';
 import { Container, Content } from './styles';
 
-export function Header() {
+interface HeaderProps {
+  onOpenNewTransactionModal: () => void;
+}
+
+export function Header({ onOpenNewTransactionModal }: HeaderProps) {
   const { signOut } = useAuth();
   const history = useHistory();
 
@@ -16,7 +21,7 @@ export function Header() {
       <Content>
         <h1>finances<span>.jf</span></h1>
         <div className='button-group'>
-          <button type="button">
+          <button type="button" onClick={onOpenNewTransactionModal}>
             Nova Transação
           </button>
           <button type='button' onClick={handleLogout}>
