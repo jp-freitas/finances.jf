@@ -1,3 +1,4 @@
+import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 
 import incomeImg from '../../assets/income.svg';
@@ -5,7 +6,9 @@ import outcomeImg from '../../assets/outcome.svg';
 import closeImg from '../../assets/close.svg';
 
 import { Container, TransactionTypeContainer, RadioBox } from './styles';
-import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { database } from '../../services/firebase';
+import { useAuth } from '../../hooks/useAuth';
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -13,7 +16,41 @@ interface NewTransactionModalProps {
 }
 
 export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
+  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState(Number());
+  const [category, setCategory] = useState('');
+  const [date, setDate] = useState(Date());
   const [type, setType] = useState('deposit');
+  const { user } = useAuth();
+
+  async function handleCreateTransaction(event: FormEvent) {
+    event.preventDefault();
+
+    if ((title.trim() && price && category && type && date) === '') {
+      onRequestClose();
+      toast.error('Nenhum dado preenchido');
+      return;
+    }
+
+    const transactionRef = database.ref('transactions');
+
+    await transactionRef.push({
+      authorId: user?.id,
+      title: title,
+      price: price,
+      category: category,
+      type: type,
+      date: date,
+    });
+
+    onRequestClose();
+    toast.success('Transação cadastrada com sucesso!');
+    setTitle('');
+    setPrice(Number());
+    setCategory('');
+    setType('deposit');
+    setDate(Date());
+  }
 
   return (
     <Modal
@@ -29,10 +66,22 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
       >
         <img src={closeImg} alt="Fechar modal" />
       </button>
-      <Container>
+      <Container onSubmit={handleCreateTransaction}>
         <h2>Cadastrar Transação</h2>
-        <input placeholder='Título' />
-        <input type="number" placeholder='Valor' />
+        <input
+          id='title'
+          placeholder='Título'
+          type='text'
+          value={title}
+          onChange={event => setTitle(event.target.value)}
+        />
+        <input
+          id='price'
+          type="number"
+          placeholder='Valor'
+          value={price}
+          onChange={event => setPrice(Number(event.target.value))}
+        />
         <TransactionTypeContainer>
           <RadioBox
             type='button'
@@ -53,7 +102,19 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
             <span>Saída</span>
           </RadioBox>
         </TransactionTypeContainer>
-        <input placeholder='Categoria' />
+        <input
+          id='category'
+          placeholder='Categoria'
+          type='text'
+          value={category}
+          onChange={event => setCategory(event.target.value)}
+        />
+        <input
+          id='date'
+          type="date"
+          value={date}
+          onChange={event => setDate(event.target.value)}
+        />
         <button type="submit">
           Cadastrar
         </button>
