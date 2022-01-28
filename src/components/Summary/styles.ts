@@ -25,11 +25,11 @@ export const Container = styled.div`
       font-weight: 500;
       line-height: 3rem;
       &.withdraw {
-        color: var(--green);
+        color: var(--red);
       }
 
       &.deposit {
-        color: var(--red)
+        color: var(--green)
       }
     }
 

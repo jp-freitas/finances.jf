@@ -17,16 +17,15 @@ interface NewTransactionModalProps {
 
 export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
   const [title, setTitle] = useState('');
-  const [price, setPrice] = useState(Number());
+  const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('');
-  const [date, setDate] = useState(Date());
   const [type, setType] = useState('deposit');
   const { user } = useAuth();
 
   async function handleCreateTransaction(event: FormEvent) {
     event.preventDefault();
 
-    if ((title.trim() && price && category && type && date) === '') {
+    if ((title.trim() && amount && category && type) === '') {
       onRequestClose();
       toast.error('Nenhum dado preenchido');
       return;
@@ -37,19 +36,17 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
     await transactionRef.push({
       authorId: user?.id,
       title: title,
-      price: price,
+      amount: amount,
       category: category,
       type: type,
-      date: date,
     });
 
     onRequestClose();
     toast.success('Transação cadastrada com sucesso!');
     setTitle('');
-    setPrice(Number());
+    setAmount(0);
     setCategory('');
     setType('deposit');
-    setDate(Date());
   }
 
   return (
@@ -76,11 +73,11 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
           onChange={event => setTitle(event.target.value)}
         />
         <input
-          id='price'
+          id='amount'
           type="number"
           placeholder='Valor'
-          value={price}
-          onChange={event => setPrice(Number(event.target.value))}
+          value={amount}
+          onChange={event => setAmount(Number(event.target.value))}
         />
         <TransactionTypeContainer>
           <RadioBox
@@ -108,12 +105,6 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
           type='text'
           value={category}
           onChange={event => setCategory(event.target.value)}
-        />
-        <input
-          id='date'
-          type="date"
-          value={date}
-          onChange={event => setDate(event.target.value)}
         />
         <button type="submit">
           Cadastrar
