@@ -9,6 +9,7 @@ import { Container, TransactionTypeContainer, RadioBox } from './styles';
 import { toast } from 'react-toastify';
 import { database } from '../../services/firebase';
 import { useAuth } from '../../hooks/useAuth';
+import { format, getDate } from 'date-fns';
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -39,6 +40,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
       amount: amount,
       category: category,
       type: type,
+      created_at: new Date().toISOString(),
     });
 
     onRequestClose();
