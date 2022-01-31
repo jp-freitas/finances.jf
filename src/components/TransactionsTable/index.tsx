@@ -3,6 +3,7 @@ import { FormatDate } from '../../utils/FormatDate';
 import { FormatCurrency } from '../../utils/FormatCurrency';
 
 import { Container } from "./styles";
+import { format } from 'date-fns';
 
 export function TransactionsTable() {
   const { transactions } = useTransactions();
@@ -28,6 +29,7 @@ export function TransactionsTable() {
                   FormatCurrency(transaction.amount)
               }</td>
               <td>{transaction.category}</td>
+              <td>{format(new Date(transaction.created_at), 'dd/MM/yyyy')}</td>
             </tr>
           ))}
         </tbody>
