@@ -21,7 +21,6 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>();
-  const [pending, setPending] = useState(true);
 
   useEffect(() => {
     const unsubiscribe = auth.onAuthStateChanged(user => {
@@ -40,7 +39,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
       }
     })
 
-    setPending(false);
     return () => {
       unsubiscribe();
     }
@@ -72,14 +70,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     user,
     signInWithGoogle,
     signOut,
-  }
-
-  if (pending) {
-    return (
-      <>
-        Loading...
-      </>
-    );
   }
 
   return (
