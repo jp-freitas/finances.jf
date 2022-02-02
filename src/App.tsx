@@ -10,6 +10,9 @@ import { Dashboard } from "./pages/Dashboard";
 import { PrivateRoute } from './components/PrivateRoute';
 
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { TransactionsProvider } from './contexts/TransactionsContext';
+
+import { ToastContainer } from "react-toastify";
 
 Modal.setAppElement('#root');
 
@@ -17,7 +20,7 @@ export function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
   return (
-    <>
+    <TransactionsProvider>
       <BrowserRouter>
         <AuthContextProvider>
           <Switch>
@@ -27,6 +30,7 @@ export function App() {
         </AuthContextProvider>
       </BrowserRouter>
       <GlobalStyle />
-    </>
+      <ToastContainer autoClose={2000} position='top-right' />
+    </TransactionsProvider>
   );
 }
