@@ -1,12 +1,12 @@
-import { useTransactions } from '../../hooks/useTransactions';
-import { FormatDate } from '../../utils/FormatDate';
-import { FormatCurrency } from '../../utils/FormatCurrency';
-
-import { Container } from "./styles";
+import { useContext } from 'react';
 import { format } from 'date-fns';
 
+import { TransactionsContext } from '../../contexts/TransactionsContext';
+import { FormatCurrency } from '../../utils/FormatCurrency';
+import { Container } from "./styles";
+
 export function TransactionsTable() {
-  const { transactions } = useTransactions();
+  const transactions = useContext(TransactionsContext);
 
   return (
     <Container>
