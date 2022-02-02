@@ -9,7 +9,6 @@ import { Container, TransactionTypeContainer, RadioBox } from './styles';
 import { toast } from 'react-toastify';
 import { database } from '../../services/firebase';
 import { useAuth } from '../../hooks/useAuth';
-import { format, getDate } from 'date-fns';
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -77,7 +76,10 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
         <input
           id='amount'
           type="number"
-          placeholder='Valor'
+          min="0"
+          max="10000"
+          step="0.01"
+          placeholder='1.00'
           value={amount}
           onChange={event => setAmount(Number(event.target.value))}
         />
