@@ -1,8 +1,10 @@
 import { useEffect, useState, createContext, ReactNode } from 'react';
+import { useAuth } from '../hooks/useAuth';
 
 import { database } from '../services/firebase';
 
 type FirebaseTransactions = Record<string, {
+  // author_id: string;
   title: string;
   amount: number;
   type: string;
@@ -12,6 +14,7 @@ type FirebaseTransactions = Record<string, {
 
 export type Transaction = {
   id: string;
+  // author_id: string;
   title: string;
   amount: number;
   type: string;
@@ -19,14 +22,24 @@ export type Transaction = {
   created_at: Date;
 }
 
+type TransactionInput = Omit<Transaction, 'id' | 'created_at'>;
+
 type TransactionsContextProviderProps = {
   children: ReactNode;
 }
 
-export const TransactionsContext = createContext<Transaction[]>([]);
+interface TransactionsContextData {
+  transactions: Transaction[],
+  createTransaction: (transaction: TransactionInput) => Promise<void>;
+}
+
+export const TransactionsContext = createContext<TransactionsContextData>(
+  {} as TransactionsContextData
+);
 
 export function TransactionsProvider(props: TransactionsContextProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const transactionRef = database.ref(`transactions/`);
@@ -48,8 +61,21 @@ export function TransactionsProvider(props: TransactionsContextProviderProps) {
     });
   }, []);
 
+  async function createTransaction(transaction: TransactionInput) {
+    const transactionRef = database.ref('transactions');
+
+    await transactionRef.push({
+      // authorId: user?.id,
+      title: transaction.title,
+      amount: transaction.amount,
+      category: transaction.category,
+      type: transaction.type,
+      created_at: new Date().toISOString(),
+    });
+  }
+
   return (
-    <TransactionsContext.Provider value={transactions}>
+    <TransactionsContext.Provider value={{ transactions, createTransaction }}>
       {props.children}
     </TransactionsContext.Provider>
   );
