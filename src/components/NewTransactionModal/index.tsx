@@ -1,13 +1,14 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useContext } from 'react';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
+
+import { TransactionsContext } from '../../contexts/TransactionsContext';
 
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
 import closeImg from '../../assets/close.svg';
 
 import { Container, TransactionTypeContainer, RadioBox } from './styles';
-import { toast } from 'react-toastify';
-import { database } from '../../services/firebase';
 import { useAuth } from '../../hooks/useAuth';
 
 interface NewTransactionModalProps {
@@ -16,11 +17,13 @@ interface NewTransactionModalProps {
 }
 
 export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
+  const { createTransaction } = useContext(TransactionsContext);
+  const { user } = useAuth();
+
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('');
   const [type, setType] = useState('deposit');
-  const { user } = useAuth();
 
   async function handleCreateTransaction(event: FormEvent) {
     event.preventDefault();
@@ -31,15 +34,12 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
       return;
     }
 
-    const transactionRef = database.ref('transactions');
-
-    await transactionRef.push({
-      authorId: user?.id,
-      title: title,
-      amount: amount,
-      category: category,
-      type: type,
-      created_at: new Date().toISOString(),
+    await createTransaction({
+      // author_id: user?.id,
+      title,
+      amount,
+      type,
+      category,
     });
 
     onRequestClose();
