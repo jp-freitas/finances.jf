@@ -42,7 +42,7 @@ export function TransactionsProvider(props: TransactionsContextProviderProps) {
   const { user } = useAuth();
 
   useEffect(() => {
-    const transactionRef = database.ref(`transactions/`);
+    const transactionRef = database.ref(`transactions/${user?.id}`);
     transactionRef.on('value', transaction => {
       const databaseTransaction = transaction.val();
       const firebaseTransactions: FirebaseTransactions = databaseTransaction ?? {};
@@ -59,10 +59,10 @@ export function TransactionsProvider(props: TransactionsContextProviderProps) {
         });
       setTransactions(parsedTransactions);
     });
-  }, []);
+  }, [user]);
 
   async function createTransaction(transaction: TransactionInput) {
-    const transactionRef = database.ref('transactions');
+    const transactionRef = database.ref(`transactions/${user?.id}`);
 
     await transactionRef.push({
       // authorId: user?.id,

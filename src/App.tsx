@@ -20,17 +20,19 @@ export function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
   return (
-    <TransactionsProvider>
+    <>
       <BrowserRouter>
         <AuthContextProvider>
           <Switch>
             <Route path='/' exact component={() => <SignIn setAuthenticated={setAuthenticated} />} />
-            <PrivateRoute authenticationPath="/" isAuthenticated={authenticated} path="/dashboard" component={Dashboard} />
+            <TransactionsProvider>
+              <PrivateRoute authenticationPath="/" isAuthenticated={authenticated} path="/dashboard" component={Dashboard} />
+            </TransactionsProvider>
           </Switch>
         </AuthContextProvider>
       </BrowserRouter>
       <GlobalStyle />
       <ToastContainer autoClose={2000} position='top-right' />
-    </TransactionsProvider>
+    </>
   );
 }

@@ -11,10 +11,6 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
-  /* @media (min-width: 1280px) and (max-width: 1600px) {
-    max-width: 80rem;
-  } */
 
   h1 {
     color: var(--shape);
@@ -43,5 +39,69 @@ export const Content = styled.div`
         filter: brightness(0.6);
       }
     }
+  }
+
+  @media(min-width: 1081px) {
+    
+  }
+
+  @media(min-width: 769px) and (max-width: 1080px) {
+    
+  }
+
+  @media(min-width: 541px) and (max-width: 768px) {
+    
+  }
+
+  @media(min-width: 500px) and (max-width: 540px) {
+    
+  }
+
+  @media(min-width: 381px) and (max-width: 499px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 1rem 15rem;
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
+      
+      > button {
+        margin-left: 0;
+      }
+
+      button {
+        width: 100%;
+        height: 3.5rem;
+      }
+
+    }
+  }
+    
+  @media(min-width: 376px) and (max-width: 380px) {
+    
+  }
+    
+  @media(min-width: 361px) and (max-width: 375px) {
+    
+  }
+    
+  @media(min-width: 321px) and (max-width: 361px) {
+    
+  }
+    
+  @media(min-width: 281px) and (max-width: 320px) {
+    
+  }
+    
+  @media(max-width: 280px) {
+    
   }
 `;
