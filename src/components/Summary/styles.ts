@@ -9,7 +9,7 @@ export const Container = styled.div`
   div {
     background: var(--shape);
     padding: 1rem 2rem;
-    border-radius: 0.25rem;
+    border-radius: 0.8rem;
     color: var(--text-title);
 
     header {
@@ -59,7 +59,40 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-top: -14rem;
+    margin-top: -15rem;
+
+    div {
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+
+      header {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+
+        p {
+          margin-left: 0.6rem;
+          font-size: 1.3rem;
+          font-weight: 500;
+        }
+
+        img {
+          margin-left: 0.2rem;
+          width: 2.7rem;
+        }
+      }
+
+      strong {
+        display: flex;
+        margin-top: 0;
+        font-size: 1.8rem;
+        font-weight: 500;
+        line-height: 3rem;
+      }
+    }
   }
     
   @media(min-width: 376px) and (max-width: 380px) {
