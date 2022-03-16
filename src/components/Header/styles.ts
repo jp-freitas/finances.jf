@@ -13,6 +13,7 @@ export const Content = styled.div`
   justify-content: space-between;
 
   h1 {
+    font-size: 2.2rem;
     color: var(--shape);
   }
 
@@ -59,27 +60,31 @@ export const Content = styled.div`
 
   @media(min-width: 381px) and (max-width: 499px) {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
     padding: 2rem 1rem 15rem;
-
-    h1 {
-      margin-bottom: 1rem;
-    }
 
     .button-group {
       display: flex;
-      flex-direction: column;
-      width: 100%;
-      gap: 1rem;
+      align-items: center;
+      gap: 0.5rem;
       
       > button {
         margin-left: 0;
       }
 
       button {
-        width: 100%;
-        height: 3.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 10rem;
+        padding: 0;
+
+        svg {
+          font-size: 1.9rem;
+        }
       }
 
     }

@@ -1,6 +1,8 @@
+import { FiLogOut, FiPlusSquare } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/useAuth';
+import { useWidth } from '../../hooks/useWidth';
 import { Container, Content } from './styles';
 
 interface HeaderProps {
@@ -9,6 +11,7 @@ interface HeaderProps {
 
 export function Header({ onOpenNewTransactionModal }: HeaderProps) {
   const { signOut } = useAuth();
+  const { width } = useWidth();
   const history = useHistory();
 
   async function handleLogout() {
@@ -22,10 +25,10 @@ export function Header({ onOpenNewTransactionModal }: HeaderProps) {
         <h1>finances<span>.jf</span></h1>
         <div className='button-group'>
           <button type="button" onClick={onOpenNewTransactionModal}>
-            Nova Transação
+            {width >= 625 ? 'Nova Transação' : <FiPlusSquare />}
           </button>
           <button type='button' onClick={handleLogout}>
-            Logout
+            {width >= 625 ? 'Sair' : <FiLogOut />}
           </button>
         </div>
       </Content>
