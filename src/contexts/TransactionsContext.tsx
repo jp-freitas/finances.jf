@@ -4,7 +4,6 @@ import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 
 type FirebaseTransactions = Record<string, {
-  // author_id: string;
   title: string;
   amount: number;
   type: string;
@@ -14,7 +13,6 @@ type FirebaseTransactions = Record<string, {
 
 export type Transaction = {
   id: string;
-  // author_id: string;
   title: string;
   amount: number;
   type: string;
@@ -65,7 +63,6 @@ export function TransactionsProvider(props: TransactionsContextProviderProps) {
     const transactionRef = database.ref(`transactions/${user?.id}`);
 
     await transactionRef.push({
-      // authorId: user?.id,
       title: transaction.title,
       amount: transaction.amount,
       category: transaction.category,
