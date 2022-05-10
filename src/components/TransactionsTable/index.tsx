@@ -9,6 +9,8 @@ import { useWidth } from '../../hooks/useWidth';
 export function TransactionsTable() {
   const { width } = useWidth();
   const { transactions } = useContext(TransactionsContext);
+  // const month = format(new Date(), 'MM');
+  // const getTransactionsByMonth = transactions.filter();
 
   return (
     <Container>

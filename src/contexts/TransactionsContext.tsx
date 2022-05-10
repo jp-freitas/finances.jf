@@ -1,5 +1,7 @@
 import { useEffect, useState, createContext, ReactNode } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { format } from 'date-fns';
+
 
 import { database } from '../services/firebase';
 
@@ -38,9 +40,10 @@ export const TransactionsContext = createContext<TransactionsContextData>(
 export function TransactionsProvider(props: TransactionsContextProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const { user } = useAuth();
+  const dateMonth = format(new Date(), 'MM');
 
   useEffect(() => {
-    const transactionRef = database.ref(`transactions/${user?.id}`);
+    const transactionRef = database.ref(`transactions/${user?.id}/${dateMonth}`);
     transactionRef.on('value', transaction => {
       const databaseTransaction = transaction.val();
       const firebaseTransactions: FirebaseTransactions = databaseTransaction ?? {};
@@ -57,10 +60,10 @@ export function TransactionsProvider(props: TransactionsContextProviderProps) {
         });
       setTransactions(parsedTransactions);
     });
-  }, [user]);
+  }, [user, dateMonth]);
 
   async function createTransaction(transaction: TransactionInput) {
-    const transactionRef = database.ref(`transactions/${user?.id}`);
+    const transactionRef = database.ref(`transactions/${user?.id}/${dateMonth}`);
 
     await transactionRef.push({
       title: transaction.title,
