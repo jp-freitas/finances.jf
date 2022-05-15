@@ -6,7 +6,7 @@ export const Container = styled.div`
   gap: 2rem;
   margin-top: -7rem;
 
-  div {
+  div.card {
     background: var(--shape);
     padding: 1rem 2rem;
     border-radius: 0.8rem;
@@ -57,37 +57,40 @@ export const Container = styled.div`
 
   @media(min-width: 381px) and (max-width: 499px) {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: -15rem;
+    width: 28.5rem;
+    margin-top: -8rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
 
-    div {
-      height: 5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    div.card {
+      height: 10rem;
+      scroll-snap-align: start;
 
       header {
+        width: 20rem;
         display: flex;
         align-items: center;
-        flex-direction: row-reverse;
+        justify-content: space-between;
 
         p {
-          margin-left: 0.6rem;
-          font-size: 1.3rem;
+          font-size: 1.5rem;
           font-weight: 500;
         }
 
         img {
           margin-left: 0.2rem;
-          width: 2.7rem;
+          width: 3.5rem;
         }
       }
 
       strong {
         display: flex;
-        margin-top: 0;
+        margin-top: 1.5rem;
         font-size: 1.8rem;
         font-weight: 500;
         line-height: 3rem;

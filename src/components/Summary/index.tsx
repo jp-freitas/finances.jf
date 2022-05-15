@@ -10,21 +10,21 @@ export function Summary() {
 
   return (
     <Container>
-      <div>
+      <div className='card'>
         <header>
           <p>Entradas</p>
           <img src={incomeImg} alt="Entradas" />
         </header>
         <strong className='deposit'>R$2.850,00</strong>
       </div>
-      <div>
+      <div className='card'>
         <header>
           <p>Saídas</p>
           <img src={outcomeImg} alt="Saídas" />
         </header>
         <strong className='withdraw'>- R$399,99</strong>
       </div>
-      <div className='highlight-background'>
+      <div className='highlight-background card'>
         <header>
           <p>Total</p>
           <img src={totalImg} alt="Saídas" />
