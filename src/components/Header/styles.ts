@@ -5,7 +5,7 @@ export const Container = styled.header`
 `;
 
 export const Content = styled.div`
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
   padding: 2rem 1rem 10rem;
   display: flex;
@@ -62,7 +62,7 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem 1rem 15rem;
+    padding: 2rem 1rem 8rem;
 
     .button-group {
       display: flex;
