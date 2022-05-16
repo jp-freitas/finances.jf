@@ -57,7 +57,6 @@ export const Container = styled.div`
 
   @media(min-width: 381px) and (max-width: 499px) {
     display: flex;
-    width: 28.5rem;
     margin-top: -8rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
